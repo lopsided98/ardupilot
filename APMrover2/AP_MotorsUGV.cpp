@@ -261,7 +261,7 @@ void AP_MotorsUGV::output(bool armed, float ground_speed, float dt)
     output_omni(armed, _steering, _throttle, _lateral);
 
     // output to mainsail
-    output_mainsail();
+    output_mainsail(armed);
 
     // send values to the PWM timers for output
     SRV_Channels::calc_pwm();
@@ -787,13 +787,21 @@ void AP_MotorsUGV::output_throttle(SRV_Channel::Aux_servo_function_t function, f
 }
 
 // output for sailboat's mainsail
-void AP_MotorsUGV::output_mainsail()
+void AP_MotorsUGV::output_mainsail(bool armed)
 {
     if (!has_sail()) {
         return;
     }
 
-    SRV_Channels::set_output_scaled(SRV_Channel::k_mainsail_sheet, _mainsail);
+    if (armed) {
+        SRV_Channels::set_output_scaled(SRV_Channel::k_mainsail_sheet, _mainsail);
+    } else {
+        if (_disarm_disable_pwm) {
+            SRV_Channels::set_output_limit(SRV_Channel::k_mainsail_sheet, SRV_Channel::SRV_CHANNEL_LIMIT_ZERO_PWM);
+        } else {
+            SRV_Channels::set_output_limit(SRV_Channel::k_mainsail_sheet, SRV_Channel::SRV_CHANNEL_LIMIT_TRIM);
+        }
+    }
 }
 
 // slew limit throttle for one iteration
