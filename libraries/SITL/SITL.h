@@ -198,6 +198,8 @@ public:
     AP_Int8  wind_type; // enum WindLimitType
     AP_Float wind_type_alt;
     AP_Float wind_type_coef;
+    AP_Float wind_direction_freq;
+    AP_Float wind_direction_noise;
 
     AP_Int16  baro_delay; // barometer data delay in ms
     AP_Int16  mag_delay; // magnetometer data delay in ms

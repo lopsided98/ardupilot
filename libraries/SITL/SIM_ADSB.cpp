@@ -37,8 +37,8 @@ void ADSB_Vehicle::update(float delta_t)
         initialised = true;
         ICAO_address = (uint32_t)(rand() % 10000);
         snprintf(callsign, sizeof(callsign), "SIM%u", ICAO_address);
-        position.x = Aircraft::rand_normal(0, _sitl->adsb_radius_m);
-        position.y = Aircraft::rand_normal(0, _sitl->adsb_radius_m);
+        position.x = rand_normal(0, _sitl->adsb_radius_m);
+        position.y = rand_normal(0, _sitl->adsb_radius_m);
         position.z = -fabsf(_sitl->adsb_altitude_m);
 
         double vel_min = 5, vel_max = 20;
@@ -49,9 +49,9 @@ void ADSB_Vehicle::update(float delta_t)
             vel_min *= 10;
             vel_max *= 10;
         }
-        velocity_ef.x = Aircraft::rand_normal(vel_min, vel_max);
-        velocity_ef.y = Aircraft::rand_normal(vel_min, vel_max);
-        velocity_ef.z = Aircraft::rand_normal(0, 3);
+        velocity_ef.x = rand_normal(vel_min, vel_max);
+        velocity_ef.y = rand_normal(vel_min, vel_max);
+        velocity_ef.z = rand_normal(0, 3);
     }
 
     position += velocity_ef * delta_t;

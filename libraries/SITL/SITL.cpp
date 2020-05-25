@@ -195,6 +195,10 @@ const AP_Param::GroupInfo SITL::var_info2[] = {
     // @Path: ./SIM_ToneAlarm.cpp
     AP_SUBGROUPINFO(tonealarm_sim, "TA_", 57, SITL, ToneAlarm),
 
+    // sailboat wind noise parameters
+    AP_GROUPINFO("WIND_DIR_FRQ",  58, SITL,  wind_direction_freq, 0),
+    AP_GROUPINFO("WIND_DIR_NSE",  59, SITL,  wind_direction_noise, 0),
+
     AP_GROUPEND
 
 };
